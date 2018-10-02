@@ -54,8 +54,8 @@ public class CustomerController {
 	public String saveCustomer(@Valid @ModelAttribute("customer") Customer theCustomer, BindingResult theBindingResult,
 			Model theModel) throws Exception {
 
-	/*	// getting the existing email
-		boolean emailexists = doesEmailExist(theCustomer.getEmail());*/
+		// getting the existing email
+		boolean emailexists = doesEmailExist(theCustomer.getEmail(),theCustomer);
 		// save the customer using our service
 
 		if (theBindingResult.hasErrors()) {
@@ -63,11 +63,11 @@ public class CustomerController {
 			return "customer-form";
 		}
 
-		/*else if (emailexists) {
+		else if (emailexists) {
 
 			theModel.addAttribute("emailError", "Email already exists.");
 			return "customer-form";
-		}*/
+		}
 
 		customerService.saveCustomer(theCustomer);
 
@@ -97,13 +97,13 @@ public class CustomerController {
 		return "redirect:/customer/list";
 	}
 
-	/*public boolean doesEmailExist(String string) {
-//Integer id= theCustomer.getId();
+	public boolean doesEmailExist(String string, Customer theCustomer) {
+/*Integer id= theCustomer.getId();*/
 		// check the database if the email already exists
 		List<Customer> theCustomers = customerService.getCustomers();
 		if (theCustomers != null && !theCustomers.isEmpty()) {
 			for (Customer customers : theCustomers) {
-				if (string.equals(customers.getEmail())) {
+				if (string.equals(customers.getEmail()) && theCustomer.getId()!=customers.getId() ) {
 
 					return true;
 				}
@@ -113,11 +113,11 @@ public class CustomerController {
 		}
 		return false;
 	}
-*/
-	@ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+
+	/*@ExceptionHandler(SQLIntegrityConstraintViolationException.class)
 	public String handleException(final Exception e, Model theModel) {
 		theModel.addAttribute("customer", new Customer());
 		theModel.addAttribute("emailError", "Email already exists.");
 		return "customer-form";
-	}
+	}*/
 }

@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
 
 //@Audited
 @Entity
-@Table(name = "customer")
+@Table(name ="customer")
 public class Customer {
 
 	@Id
@@ -64,7 +64,7 @@ public class Customer {
 		return lastName;
 	}
 
-	@Column(name = "email", unique = true)
+	
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
